@@ -103,3 +103,48 @@ A sprint is successful if it delivers at least one of the following:
 - A deeper educational experience
 
 Small, consistent progress compounds into extraordinary software.
+
+
+### Scientific Integrity
+
+FusionTwin should distinguish clearly between:
+
+- Visualization
+- Approximation
+- Validated models
+
+Educational animations should never be presented as scientific simulations.
+When fidelity is limited, the software should make that explicit.
+
+
+### Everything Has a Name
+
+Every object in FusionTwin should have:
+
+- an identifier
+- a display name
+- documentation
+- metadata
+
+Nothing should exist as an anonymous mesh.
+
+
+
+### Visualization Before Physics
+
+People understand what they can see.
+
+FusionTwin should first make reactor systems visible and intuitive.
+
+Scientific fidelity will increase over time, but visual understanding comes first.
+
+
+### Stable Data Formats
+
+Reactor definitions should be versioned.
+
+Future changes should preserve compatibility whenever practical.
+
+
+
+Complex science. Clear visualization.
