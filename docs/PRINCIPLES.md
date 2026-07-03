@@ -146,5 +146,9 @@ Reactor definitions should be versioned.
 Future changes should preserve compatibility whenever practical.
 
 
+The 90% Rule
+
+If adding a new reactor requires changing engine code, the architecture is wrong.
+
 
 Complex science. Clear visualization.

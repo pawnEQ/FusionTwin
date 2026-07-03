@@ -1,0 +1,13 @@
+{
+  "name": "Demo Reactor",
+
+  "components": [
+
+    {
+      "id": "plasma",
+
+      "type": "Plasma"
+    }
+
+  ]
+}
