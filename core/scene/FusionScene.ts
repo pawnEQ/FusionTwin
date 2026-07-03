@@ -1,13 +1,27 @@
-class FusionScene {
+import { FusionComponent } from "../component/FusionComponent";
 
-    components
+export class FusionScene {
 
-    add()
+    private components: FusionComponent[] = [];
 
-    remove()
+    public add(component: FusionComponent): void {
+        this.components.push(component);
+    }
 
-    find()
+    public remove(id: string): void {
+        this.components = this.components.filter(
+            component => component.id !== id
+        );
+    }
 
-    children()
+    public find(id: string): FusionComponent | undefined {
+        return this.components.find(
+            component => component.id === id
+        );
+    }
+
+    public getComponents(): readonly FusionComponent[] {
+        return this.components;
+    }
 
 }

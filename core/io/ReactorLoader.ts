@@ -1,11 +1,12 @@
-// core/io/ReactorDefinition.ts
+import { FusionScene } from "../scene/FusionScene";
+import { ReactorDefinition } from "./ReactorDefinition";
 
-import { FusionComponent } from "../component/FusionComponent";
+export class ReactorLoader {
+    static load(definition: ReactorDefinition): FusionScene {
+        const scene = new FusionScene();
 
-export interface ReactorDefinition {
-    version: string;
+        // Build FusionComponents here
 
-    name: string;
-
-    components: FusionComponent[];
+        return scene;
+    }
 }

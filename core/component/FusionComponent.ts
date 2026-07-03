@@ -1,7 +1,9 @@
-export interface FusionComponent {
-    id: string;
+import { FusionComponentType } from "./FusionComponentType";
 
-    type: string;
+export interface FusionComponent {
+    readonly id: string;
+
+    type: FusionComponentType;
 
     name: string;
 

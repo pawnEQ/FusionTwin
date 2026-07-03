@@ -1,3 +1,5 @@
+import { ComponentDefinition } from "./ComponentDefinition";
+
 export interface ReactorDefinition {
 
     version: string;

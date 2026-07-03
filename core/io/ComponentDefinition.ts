@@ -1,8 +1,10 @@
+import { FusionComponentType } from "../component/FusionComponentType";
+
 export interface ComponentDefinition {
 
-    id: string;
+    readonly id: string;
 
-    type: string;
+    type: FusionComponentType;
 
     name: string;
 
