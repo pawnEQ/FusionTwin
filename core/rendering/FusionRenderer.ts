@@ -4,6 +4,11 @@ import { FusionScene } from "../scene/FusionScene";
 import { FusionComponent } from "../component/FusionComponent";
 import { FusionComponentType } from "../component/FusionComponentType";
 
+interface PoloidalRingDefinition {
+    radius: number;
+    height: number;
+}
+
 export class FusionRenderer {
 
     private threeScene: THREE.Scene;
@@ -32,6 +37,10 @@ export class FusionRenderer {
 
                 case FusionComponentType.ToroidalFieldCoil:
                     this.renderToroidalFieldCoils(component);
+                    break;
+
+                case FusionComponentType.PoloidalFieldCoil:
+                    this.renderPoloidalFieldCoils(component);
                     break;
 
                 default:
@@ -227,6 +236,54 @@ export class FusionRenderer {
 
     }
 
+    private renderPoloidalFieldCoils(
+        component: FusionComponent
+    ): void {
+
+        const tubeRadius = this.getNumberMetadata(
+            component,
+            "tubeRadius"
+        );
+
+        const rings = this.getPoloidalRings(
+            component
+        );
+
+        const material = new THREE.MeshStandardMaterial({
+            color: 0xd6a84b,
+            metalness: 0.75,
+            roughness: 0.3
+        });
+
+        for (let index = 0; index < rings.length; index++) {
+
+            const ring = rings[index];
+
+            const geometry = new THREE.TorusGeometry(
+                ring.radius,
+                tubeRadius,
+                16,
+                100
+            );
+
+            const coil = new THREE.Mesh(
+                geometry,
+                material
+            );
+
+            coil.name =
+                `${component.name} ${index + 1}`;
+
+            coil.rotation.x = Math.PI / 2;
+
+            coil.position.y = ring.height;
+
+            this.threeScene.add(coil);
+
+        }
+
+    }
+
     private getNumberMetadata(
         component: FusionComponent,
         key: string
@@ -241,6 +298,40 @@ export class FusionRenderer {
         }
 
         return value;
+
+    }
+
+    private getPoloidalRings(
+        component: FusionComponent
+    ): PoloidalRingDefinition[] {
+
+        const value = component.metadata["rings"];
+
+        if (!Array.isArray(value)) {
+            throw new Error(
+                `Component "${component.name}" requires array metadata "rings"`
+            );
+        }
+
+        return value.map((ring, index) => {
+
+            if (
+                typeof ring !== "object" ||
+                ring === null ||
+                typeof ring.radius !== "number" ||
+                typeof ring.height !== "number"
+            ) {
+                throw new Error(
+                    `Component "${component.name}" has invalid ring metadata at index ${index}`
+                );
+            }
+
+            return {
+                radius: ring.radius,
+                height: ring.height
+            };
+
+        });
 
     }
 

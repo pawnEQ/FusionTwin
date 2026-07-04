@@ -53,7 +53,28 @@
       "id": "poloidal-field-coil",
       "type": "PoloidalFieldCoil",
       "name": "Poloidal Field Coil",
-      "parent": "reactor"
+      "parent": "reactor",
+      "metadata": {
+        "tubeRadius": 0.08,
+        "rings": [
+          {
+            "radius": 2.45,
+            "height": 1.15
+          },
+          {
+            "radius": 2.2,
+            "height": 0.65
+          },
+          {
+            "radius": 2.2,
+            "height": -0.65
+          },
+          {
+            "radius": 2.45,
+            "height": -1.15
+          }
+        ]
+      }
     },
     {
       "id": "divertor",
