@@ -1,13 +1,11 @@
 {
+  "version": "1.0.0",
   "name": "Demo Reactor",
-
   "components": [
-
     {
       "id": "plasma",
-
-      "type": "Plasma"
+      "type": "Plasma",
+      "name": "Demo Plasma"
     }
-
   ]
 }

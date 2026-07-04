@@ -1,23 +1,25 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+import demoReactor from "../../assets/reactors/demo.json";
+import { ReactorLoader } from "../../core/io/ReactorLoader";
+import { ReactorDefinition } from "../../core/io/ReactorDefinition";
 import { FusionRenderer } from "../../core/rendering/FusionRenderer";
-import { FusionScene } from "../../core/scene/FusionScene";
-import { FusionComponentType } from "../../core/component/FusionComponentType";
 
 export default function FusionCanvas() {
-
     const mountRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-
-        if (!mountRef.current) return;
+        if (!mountRef.current) {
+            return;
+        }
 
         //
         // THREE.JS SETUP
         //
 
         const scene = new THREE.Scene();
+
         scene.background = new THREE.Color(0x0b0d13);
 
         const camera = new THREE.PerspectiveCamera(
@@ -33,7 +35,10 @@ export default function FusionCanvas() {
             antialias: true
         });
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(
+            window.innerWidth,
+            window.innerHeight
+        );
 
         mountRef.current.appendChild(renderer.domElement);
 
@@ -41,7 +46,10 @@ export default function FusionCanvas() {
         // LIGHTING
         //
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        const ambientLight = new THREE.AmbientLight(
+            0xffffff,
+            1
+        );
 
         scene.add(ambientLight);
 
@@ -49,29 +57,14 @@ export default function FusionCanvas() {
         // FUSION ENGINE
         //
 
-        const fusionScene = new FusionScene();
+        const reactorDefinition =
+            demoReactor as ReactorDefinition;
 
-        fusionScene.add({
+        const fusionScene =
+            ReactorLoader.load(reactorDefinition);
 
-            id: "plasma",
-
-            type: FusionComponentType.Plasma,
-
-            name: "Demo Plasma",
-
-            parent: undefined,
-
-            children: [],
-
-            visible: true,
-
-            enabled: true,
-
-            metadata: {}
-
-        });
-
-        const fusionRenderer = new FusionRenderer(scene);
+        const fusionRenderer =
+            new FusionRenderer(scene);
 
         fusionRenderer.render(fusionScene);
 
@@ -80,11 +73,9 @@ export default function FusionCanvas() {
         //
 
         function animate() {
-
             requestAnimationFrame(animate);
 
             renderer.render(scene, camera);
-
         }
 
         animate();
@@ -94,13 +85,12 @@ export default function FusionCanvas() {
         //
 
         return () => {
-
-            mountRef.current?.removeChild(renderer.domElement);
+            mountRef.current?.removeChild(
+                renderer.domElement
+            );
 
             renderer.dispose();
-
         };
-
     }, []);
 
     return (
@@ -112,5 +102,4 @@ export default function FusionCanvas() {
             }}
         />
     );
-
 }
