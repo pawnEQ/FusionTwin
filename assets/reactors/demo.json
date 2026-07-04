@@ -1,11 +1,47 @@
 {
   "version": "1.0.0",
-  "name": "Demo Reactor",
+  "name": "Demo Tokamak",
   "components": [
+    {
+      "id": "reactor",
+      "type": "Reactor",
+      "name": "Demo Tokamak"
+    },
+    {
+      "id": "vacuum-vessel",
+      "type": "VacuumVessel",
+      "name": "Vacuum Vessel",
+      "parent": "reactor"
+    },
     {
       "id": "plasma",
       "type": "Plasma",
-      "name": "Demo Plasma"
+      "name": "Demo Plasma",
+      "parent": "vacuum-vessel"
+    },
+    {
+      "id": "central-solenoid",
+      "type": "CentralSolenoid",
+      "name": "Central Solenoid",
+      "parent": "reactor"
+    },
+    {
+      "id": "toroidal-field-coil",
+      "type": "ToroidalFieldCoil",
+      "name": "Toroidal Field Coil",
+      "parent": "reactor"
+    },
+    {
+      "id": "poloidal-field-coil",
+      "type": "PoloidalFieldCoil",
+      "name": "Poloidal Field Coil",
+      "parent": "reactor"
+    },
+    {
+      "id": "divertor",
+      "type": "Divertor",
+      "name": "Divertor",
+      "parent": "vacuum-vessel"
     }
   ]
 }

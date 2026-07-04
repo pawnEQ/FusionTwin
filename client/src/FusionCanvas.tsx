@@ -29,7 +29,17 @@ export default function FusionCanvas() {
             1000
         );
 
-        camera.position.z = 5;
+        camera.position.set(
+            4,
+            3,
+            5
+        );
+
+        camera.lookAt(
+            0,
+            0,
+            0
+        );
 
         const renderer = new THREE.WebGLRenderer({
             antialias: true
@@ -52,6 +62,20 @@ export default function FusionCanvas() {
         );
 
         scene.add(ambientLight);
+
+        const directionalLight =
+            new THREE.DirectionalLight(
+                0xffffff,
+                2
+            );
+
+        directionalLight.position.set(
+            5,
+            5,
+            5
+        );
+
+        scene.add(directionalLight);
 
         //
         // FUSION ENGINE
