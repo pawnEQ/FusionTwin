@@ -11,25 +11,43 @@
       "id": "vacuum-vessel",
       "type": "VacuumVessel",
       "name": "Vacuum Vessel",
-      "parent": "reactor"
+      "parent": "reactor",
+      "metadata": {
+        "majorRadius": 1.5,
+        "tubeRadius": 0.65
+      }
     },
     {
       "id": "plasma",
       "type": "Plasma",
       "name": "Demo Plasma",
-      "parent": "vacuum-vessel"
+      "parent": "vacuum-vessel",
+      "metadata": {
+        "majorRadius": 1.5,
+        "tubeRadius": 0.45
+      }
     },
     {
       "id": "central-solenoid",
       "type": "CentralSolenoid",
       "name": "Central Solenoid",
-      "parent": "reactor"
+      "parent": "reactor",
+      "metadata": {
+        "radius": 0.35,
+        "height": 3.5
+      }
     },
     {
       "id": "toroidal-field-coil",
       "type": "ToroidalFieldCoil",
       "name": "Toroidal Field Coil",
-      "parent": "reactor"
+      "parent": "reactor",
+      "metadata": {
+        "count": 18,
+        "majorRadius": 1.5,
+        "coilRadius": 0.9,
+        "tubeRadius": 0.08
+      }
     },
     {
       "id": "poloidal-field-coil",

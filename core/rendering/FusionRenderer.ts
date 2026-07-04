@@ -30,6 +30,10 @@ export class FusionRenderer {
                     this.renderCentralSolenoid(component);
                     break;
 
+                case FusionComponentType.ToroidalFieldCoil:
+                    this.renderToroidalFieldCoils(component);
+                    break;
+
                 default:
                     console.warn(
                         `No renderer registered for component type: ${component.type}`
@@ -43,9 +47,19 @@ export class FusionRenderer {
 
     private renderPlasma(component: FusionComponent): void {
 
+        const majorRadius = this.getNumberMetadata(
+            component,
+            "majorRadius"
+        );
+
+        const tubeRadius = this.getNumberMetadata(
+            component,
+            "tubeRadius"
+        );
+
         const geometry = new THREE.TorusGeometry(
-            1.5,
-            0.45,
+            majorRadius,
+            tubeRadius,
             32,
             100
         );
@@ -73,9 +87,19 @@ export class FusionRenderer {
         component: FusionComponent
     ): void {
 
+        const majorRadius = this.getNumberMetadata(
+            component,
+            "majorRadius"
+        );
+
+        const tubeRadius = this.getNumberMetadata(
+            component,
+            "tubeRadius"
+        );
+
         const geometry = new THREE.TorusGeometry(
-            1.5,
-            0.65,
+            majorRadius,
+            tubeRadius,
             32,
             100
         );
@@ -105,10 +129,20 @@ export class FusionRenderer {
         component: FusionComponent
     ): void {
 
+        const radius = this.getNumberMetadata(
+            component,
+            "radius"
+        );
+
+        const height = this.getNumberMetadata(
+            component,
+            "height"
+        );
+
         const geometry = new THREE.CylinderGeometry(
-            0.35,
-            0.35,
-            3.5,
+            radius,
+            radius,
+            height,
             48
         );
 
@@ -126,6 +160,87 @@ export class FusionRenderer {
         mesh.name = component.name;
 
         this.threeScene.add(mesh);
+
+    }
+
+    private renderToroidalFieldCoils(
+        component: FusionComponent
+    ): void {
+
+        const coilCount = this.getNumberMetadata(
+            component,
+            "count"
+        );
+
+        const majorRadius = this.getNumberMetadata(
+            component,
+            "majorRadius"
+        );
+
+        const coilRadius = this.getNumberMetadata(
+            component,
+            "coilRadius"
+        );
+
+        const tubeRadius = this.getNumberMetadata(
+            component,
+            "tubeRadius"
+        );
+
+        const material = new THREE.MeshStandardMaterial({
+            color: 0xcc6633,
+            metalness: 0.75,
+            roughness: 0.3
+        });
+
+        for (let index = 0; index < coilCount; index++) {
+
+            const angle =
+                (index / coilCount) * Math.PI * 2;
+
+            const geometry = new THREE.TorusGeometry(
+                coilRadius,
+                tubeRadius,
+                16,
+                64
+            );
+
+            const coil = new THREE.Mesh(
+                geometry,
+                material
+            );
+
+            coil.name =
+                `${component.name} ${index + 1}`;
+
+            coil.position.set(
+                Math.cos(angle) * majorRadius,
+                0,
+                Math.sin(angle) * majorRadius
+            );
+
+            coil.rotation.y = -angle;
+
+            this.threeScene.add(coil);
+
+        }
+
+    }
+
+    private getNumberMetadata(
+        component: FusionComponent,
+        key: string
+    ): number {
+
+        const value = component.metadata[key];
+
+        if (typeof value !== "number") {
+            throw new Error(
+                `Component "${component.name}" requires numeric metadata "${key}"`
+            );
+        }
+
+        return value;
 
     }
 
