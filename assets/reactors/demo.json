@@ -80,7 +80,25 @@
       "id": "divertor",
       "type": "Divertor",
       "name": "Divertor",
-      "parent": "vacuum-vessel"
+      "parent": "vacuum-vessel",
+      "metadata": {
+        "targets": [
+          {
+            "name": "Inner Target",
+            "majorRadius": 1.15,
+            "height": -0.52,
+            "width": 0.18,
+            "depth": 0.08
+          },
+          {
+            "name": "Outer Target",
+            "majorRadius": 1.85,
+            "height": -0.52,
+            "width": 0.18,
+            "depth": 0.08
+          }
+        ]
+      }
     }
   ]
 }
