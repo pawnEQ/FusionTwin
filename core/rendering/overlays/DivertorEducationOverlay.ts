@@ -97,5 +97,64 @@ export class DivertorEducationOverlay {
             threeScene.add(innerHaloMesh);
             threeScene.add(outerHaloMesh);
         }
+
+        if (validatedState.detached) {
+            const targetRadii = targets.map((target) => target.majorRadius);
+            const targetHeights = targets.map((target) => target.height);
+            const innerRadius = Math.min(...targetRadii);
+            const outerRadius = Math.max(...targetRadii);
+            const baseHeight = Math.max(...targetHeights) + 0.16;
+            const centerRadius = (innerRadius + outerRadius) / 2;
+            const tubeRadius = (outerRadius - innerRadius) / 2 + 0.18;
+
+            const radiationMaterial = new THREE.MeshBasicMaterial({
+                color: 0xb55cff,
+                transparent: true,
+                opacity: 0.18 + validatedState.load * 0.18,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            const outerRadiationMaterial = new THREE.MeshBasicMaterial({
+                color: 0x6f7dff,
+                transparent: true,
+                opacity: 0.06 + validatedState.load * 0.08,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            const radiationGeometry = new THREE.TorusGeometry(
+                centerRadius,
+                tubeRadius,
+                32,
+                160
+            );
+            const radiationMesh = new THREE.Mesh(
+                radiationGeometry,
+                radiationMaterial
+            );
+
+            radiationMesh.name = `${component.name} Education Detached Radiative Region`;
+            radiationMesh.rotation.x = Math.PI / 2;
+            radiationMesh.position.y = baseHeight;
+
+            const outerRadiationGeometry = new THREE.TorusGeometry(
+                centerRadius,
+                tubeRadius * 1.18,
+                32,
+                160
+            );
+            const outerRadiationMesh = new THREE.Mesh(
+                outerRadiationGeometry,
+                outerRadiationMaterial
+            );
+
+            outerRadiationMesh.name = `${component.name} Education Detached Radiative Halo`;
+            outerRadiationMesh.rotation.x = Math.PI / 2;
+            outerRadiationMesh.position.y = baseHeight + 0.03;
+
+            threeScene.add(radiationMesh);
+            threeScene.add(outerRadiationMesh);
+        }
     }
 }
