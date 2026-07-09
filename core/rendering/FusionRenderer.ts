@@ -1,7 +1,9 @@
 import * as THREE from "three";
 
 import { FusionComponentType } from "../component/FusionComponentType";
+import { HIGH_LOAD_DIVERTOR_STATE } from "../education/DivertorLessonStates";
 import { FusionScene } from "../scene/FusionScene";
+import { DivertorEducationOverlay } from "./overlays/DivertorEducationOverlay";
 import { CentralSolenoidRenderer } from "./renderers/CentralSolenoidRenderer";
 import { DivertorRenderer } from "./renderers/DivertorRenderer";
 import { PlasmaRenderer } from "./renderers/PlasmaRenderer";
@@ -41,6 +43,11 @@ export class FusionRenderer {
 
                 case FusionComponentType.Divertor:
                     DivertorRenderer.render(this.threeScene, component);
+                    DivertorEducationOverlay.render(
+                        this.threeScene,
+                        component,
+                        HIGH_LOAD_DIVERTOR_STATE
+                    );
                     break;
 
                 default:
