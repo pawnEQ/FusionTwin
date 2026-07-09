@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { FusionComponentType } from "../component/FusionComponentType";
 import { FusionScene } from "../scene/FusionScene";
 import { CentralSolenoidRenderer } from "./renderers/CentralSolenoidRenderer";
+import { DivertorRenderer } from "./renderers/DivertorRenderer";
 import { PlasmaRenderer } from "./renderers/PlasmaRenderer";
 import { PoloidalFieldCoilRenderer } from "./renderers/PoloidalFieldCoilRenderer";
 import { ToroidalFieldCoilRenderer } from "./renderers/ToroidalFieldCoilRenderer";
@@ -36,6 +37,10 @@ export class FusionRenderer {
 
                 case FusionComponentType.PoloidalFieldCoil:
                     PoloidalFieldCoilRenderer.render(this.threeScene, component);
+                    break;
+
+                case FusionComponentType.Divertor:
+                    DivertorRenderer.render(this.threeScene, component);
                     break;
 
                 default:
